@@ -13,18 +13,18 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(               //Adding appbar which would translate to navbar
+      home: Scaffold(
+        //Adding appbar => Hierachy: Scaffold > AppBar/Center
         appBar: AppBar(
           title: const Align(
             alignment: Alignment.centerLeft,
             child: Text('Birdle'),
           ),
         ),
-        body: const Center(
-          child: Tile('A', HitType.hit),
-        ),
+        body: Center(child: GamePage()),
       ),
-    );;
+    );
+    ;
   }
 }
 
@@ -53,6 +53,27 @@ class Tile extends StatelessWidget {
           letter.toUpperCase(),
           style: Theme.of(context).textTheme.titleLarge,
         ),
+      ),
+    );
+  }
+}
+
+class GamePage extends StatelessWidget {
+  GamePage({super.key});
+
+  final Game _game = Game();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Align(
+            alignment: Alignment.centerLeft,
+            child: Text('Birdle'),
+          ),
+        ),
+        body : Center(child: GamePage()),
       ),
     );
   }
