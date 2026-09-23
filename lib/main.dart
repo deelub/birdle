@@ -63,17 +63,23 @@ class GamePage extends StatelessWidget {
 
   final Game _game = Game();
 
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Align(
-            alignment: Alignment.centerLeft,
-            child: Text('Birdle'),
-          ),
-        ),
-        body : Center(child: GamePage()),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        spacing: 5.0,
+        children: [
+          for (final guess in _game.guesses)
+            Row(
+              spacing: 5.0,
+              children: [
+                // We'll add the tiles here later.
+              ],
+            ),
+        ],
       ),
     );
   }
