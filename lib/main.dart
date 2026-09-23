@@ -36,13 +36,15 @@ class Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 60,
+     return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      curve : Curves.bounceIn,
       height: 60,
+      width: 60,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
         color: switch (hitType) {
-          HitType.hit => Colors.green, //Hit enum type
+          HitType.hit => Colors.green,
           HitType.partial => Colors.yellow,
           HitType.miss => Colors.grey,
           _ => Colors.white,
@@ -112,6 +114,20 @@ class _GuessInputState extends State<GuessInput> {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode _focusNode = FocusNode(); 
 
+    @override
+  void dispose() {
+    _textEditingController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _onSubmit() {
+    widget.onSubmitGuess(_textEditingController.text.trim());
+    _textEditingController.clear();
+    _focusNode.requestFocus();
+  }
+
+  
   
   @override
   Widget build(BuildContext context) {
@@ -132,10 +148,7 @@ class _GuessInputState extends State<GuessInput> {
               autofocus: true, // automatically focuses the textfield when the page is loaded
               focusNode: _focusNode, // refocuses the textfield after submission
               onSubmitted: (input) {
-                onSubmitGuess(input); // call back for when input is submitted
-                onSubmitGuess(_textEditingController.text.trim()); 
-                _textEditingController.clear(); // clear the textfield after submission
-                _focusNode.requestFocus(); // refocus the textfield after submission
+                _onSubmit();
               },
             ),
           ),
@@ -144,9 +157,7 @@ class _GuessInputState extends State<GuessInput> {
           padding: EdgeInsets.zero,
           icon: const Icon(Icons.arrow_circle_up),
           onPressed: () {
-            onSubmitGuess(_textEditingController.text.trim());
-            _textEditingController.clear();
-            _focusNode.requestFocus();
+            _onSubmit();
           },
         ),
       ],
