@@ -98,15 +98,20 @@ class _GamePageState extends State<GamePage> {
   }
 }
 
-class GuessInput extends StatelessWidget {
+class GuessInput extends StatefulWidget {
   GuessInput({super.key, required this.onSubmitGuess});
 
   final void Function(String)
   onSubmitGuess; //takes the users guess as a string and returns nothing
 
+  @override
+  State<GuessInput> createState() => _GuessInputState();
+}
+
+class _GuessInputState extends State<GuessInput> {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode _focusNode = FocusNode(); 
-  
+
   
   @override
   Widget build(BuildContext context) {
