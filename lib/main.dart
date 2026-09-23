@@ -70,18 +70,28 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        spacing: 5.0,
         children: [
-          for (final guess in _game.guesses)
+          for (var guess in _game.guesses)
             Row(
-              spacing: 5.0,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // We'll add the tiles here later.
+                for (var letter in guess)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
+                    child: Tile(letter.char, letter.type),
+                  )
               ],
             ),
+          GuessInput(
+            onSubmitGuess: (String guess) {
+              setState(() { // NEW
+                _game.guess(guess);
+              });
+            },
+          ),
         ],
       ),
     );
