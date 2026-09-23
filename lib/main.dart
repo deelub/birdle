@@ -90,7 +90,9 @@ class GuessInput extends StatelessWidget {
   onSubmitGuess; //takes the users guess as a string and returns nothing
 
   final TextEditingController _textEditingController = TextEditingController();
-
+  final FocusNode _focusNode = FocusNode(); 
+  
+  
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -107,8 +109,13 @@ class GuessInput extends StatelessWidget {
                 ),
               ),
               controller: _textEditingController, // read and clear textfield after submissions
+              autofocus: true, // automatically focuses the textfield when the page is loaded
+              focusNode: _focusNode, // refocuses the textfield after submission
               onSubmitted: (input) {
-                print(_textEditingController.text); // call back for when input is submitted
+                onSubmitGuess(input); // call back for when input is submitted
+                onSubmitGuess(_textEditingController.text.trim()); 
+                _textEditingController.clear(); // clear the textfield after submission
+                _focusNode.requestFocus(); // refocus the textfield after submission
               },
             ),
           ),
