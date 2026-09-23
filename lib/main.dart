@@ -63,8 +63,6 @@ class GamePage extends StatelessWidget {
 
   final Game _game = Game();
 
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -83,18 +81,39 @@ class GamePage extends StatelessWidget {
       ),
     );
   }
-
 }
-
 
 class GuessInput extends StatelessWidget {
   GuessInput({super.key, required this.onSubmitGuess});
 
-  final void Function(String) onSubmitGuess;  //takes the users guess as a string and returns nothing
+  final void Function(String)
+  onSubmitGuess; //takes the users guess as a string and returns nothing
+
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
-    return Container(); 
+    return Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              //textfiel for input
+              maxLength: 5,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                ),
+              ),
+              controller: _textEditingController, // read and clear textfield after submissions
+              onSubmitted: (input) {
+                print(_textEditingController.text); // call back for when input is submitted
+              },
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
